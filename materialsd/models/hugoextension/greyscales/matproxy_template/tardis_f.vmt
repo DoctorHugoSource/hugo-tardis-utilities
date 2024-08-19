@@ -1,0 +1,36 @@
+VertexLitGeneric
+{
+	$basetexture "models/TARDISman/tardisman550/tardis_f_diffuse"
+	"$color2" "{355 355 355}"
+	$bumpmap  "models/doctorwho1200/toyota/e_box_bumpmap"
+//	$envmap "env_cubemap"
+	$envmaptint "[.0125 .0125 .0125]"
+	$diffuseexp 1
+	$halflambert 1
+	$nocull 0
+	$phong 1
+	$phongalbedotint 1
+	"$phongexponent"			"30"
+	$phongexponenttexture "models/TARDISman/tardisman550/tardis_f_r6"
+	"$phongboost"				"1"
+	"$phongfresnelranges"		"[0.05 0.5 1]"
+	"$rimlight"					"1"
+	"$rimlightexponent"			"2"
+	"$rimlightboost"			"0.2"
+
+	$EmissiveBlendEnabled         		1
+    	$EmissiveBlendStrength         		0
+    	$EmissiveBlendTexture         		"vgui/white"
+    	$EmissiveBlendBaseTexture         	"models/hugoextension/greyscales/toyota/tardis_f_diffuse_greyscale"
+    	$EmissiveBlendFlowTexture         	"vgui/white"
+    	$EmissiveBlendTint                	" {55 55 55} "
+    	$EmissiveBlendScrollVector		" [ 0 0 ] "
+
+			Proxies {
+			TARDIS_PhaseEffect {
+			resultVar    $phongexponent
+			resultVar2    $EmissiveBlendStrength
+			resultVar4    $phongboost
+		}
+	}
+}

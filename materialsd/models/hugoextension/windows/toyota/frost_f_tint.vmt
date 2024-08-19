@@ -1,0 +1,37 @@
+VertexLitGeneric
+{
+	$basetexture "models/TARDISman/tardisman550/whitewindows"
+	$bumpmap  "models/TARDISman/tardisman550/bump_random2"
+	$envmap "env_cubemap"
+	$envmaptint "[.125 .125 .125]"
+	$diffuseexp 1
+	$halflambert 1
+	$nocull 0
+	$phong 1
+	$phongalbedotint 1
+	$phongalbedoboost 255
+	$phongexponenttexture "models/TARDISman/tardisman550/tardis_f_r7"
+	"$phongexponent" "60"
+	"$phongboost" "20"
+//	$phongtint 			"[ 2.5 0.5 .05 ]"
+	"$phongfresnelranges" "[0.25 0.5 1]"
+	$rimlight               1
+	"$rimlightexponent" "4"
+	"$rimlightboost" "2"
+	"$basemapalphaphongmask" "1"
+
+
+	$EmissiveBlendEnabled         1
+    $EmissiveBlendStrength         0.1
+    $EmissiveBlendTexture         "vgui/white"
+    $EmissiveBlendBaseTexture         "models/hugoextension/windows/shared/windowbright"
+    $EmissiveBlendFlowTexture         "vgui/white"
+    $EmissiveBlendTint                 " {0 0 0} "
+    $EmissiveBlendScrollVector         " [ 0 0 ] "
+
+    Proxies {
+	TARDIS_Exterior_WindowTint {
+	resultVar    $EmissiveBlendTint
+	}
+}
+}
