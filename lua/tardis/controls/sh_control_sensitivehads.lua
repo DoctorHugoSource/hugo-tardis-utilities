@@ -1,0 +1,26 @@
+
+TARDIS:AddControl({
+    id = "hadssensitivity",
+    ext_func = function(self,ply)
+
+        self.exterior:ToggleSensitiveHADS()
+
+            if self.exterior:GetSensitiveHADS() then
+            TARDIS:Message(ply, "HADS Sensitivity set to high")
+            else
+            TARDIS:Message(ply, "HADS Sensitivity set to default")
+            end
+
+    end,
+    serveronly = true,
+    power_independent = false,
+    screen_button = {
+        virt_console = true,
+        mmenu = false,
+        popup_only = false,
+        toggle = true,
+        frame_type = {2, 1},
+        text = "Toggle HADS Sensitivity",
+    },
+    tip_text = "HADS Sensitivity recalibration",
+})

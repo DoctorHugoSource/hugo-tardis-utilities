@@ -1,0 +1,59 @@
+-- local PART={}
+-- PART.ID = "phaseshader"
+-- PART.Name = PART.ID
+-- PART.Model = ""
+-- PART.AutoSetup = true
+-- PART.Collision = false
+-- PART.ShouldTakeDamage = false
+-- PART.CustomAlpha = true
+-- PART.NoShadow = true
+-- PART.CollisionUse = false
+--
+--     function PART:Initialize()
+--                 self:SetModel(self.exterior.metadata.Exterior.Model)
+--                 self:SetParent(self.parent)
+--                 self:SetNoDraw(true)  -- set false for debugging
+--
+--                 self:SetMaterial("models/hugotest/tardis/culltest")
+--
+--     end
+--
+-- if SERVER then
+-- 	function PART:Draw()
+-- 		self:DrawModel()
+-- 	end
+-- end
+--
+-- TARDIS:AddPart(PART)
+--
+--
+-- local PART={}
+-- PART.ID = "doorphaseshader"
+-- PART.Name = PART.ID
+-- PART.Model = ""
+-- PART.AutoSetup = true
+-- PART.Collision = false
+-- PART.ShouldTakeDamage = false
+-- PART.CustomAlpha = true
+-- PART.NoShadow = true
+-- PART.CollisionUse = false
+--
+--     function PART:Initialize()
+--                 self:SetModel(self.exterior.metadata.Exterior.Parts.door.model)
+--                 if self.exterior.parts.door then
+--                 self:SetPos(self.exterior.parts.door:GetPos())
+--                 end
+--                 self:SetParent(self.parent)
+--                 self:SetNoDraw(true)
+--
+--                 self:SetMaterial("models/hugotest/tardis/culltest")
+--
+--     end
+--
+-- if SERVER then
+-- 	function PART:Draw()
+-- 		self:DrawModel()
+-- 	end
+-- end
+--
+-- TARDIS:AddPart(PART)

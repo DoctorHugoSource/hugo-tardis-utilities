@@ -1,0 +1,107 @@
+figure out why the fuck the tardis suddenly doesnt die when falling out of the vortex
+
+improve spark effect for sliding/grinding
+
+improve the math for window tint lerp 
+
+figure out why the shit i get a split second stutter every time i walk out of the tardis
+	- it's not the stat saving function
+	- it's not the new exit collision improvements
+idk what it could be
+
+		edit figured it out, its caused by torrent's hartnell tardis because it makes use of soundscape_flush to control soundscapes while in the interior
+		sounscape flush introduces a stutter whenever called, and it only happens in singleplayer or in multiplayer with sv_cheats 1
+
+
+
+fix the entire 'lockedang' shenanigans regarding the vortex model
+
+figure out why the vortex appears in full opacity in 3rdperson during the pre-demat phase (see: default tardis demat)
+
+add some funny spin to the new faked vortex crashing
+
+allow cloister sound to play through the door to the outside of the exterior (like the idle sound
+
+add wayyy more and *more responsive* crash and impact effects
+	- more shaking, make the interior feel like it's actually moving through the world in the box
+	- move the player around during crashing, corresponding to the direction of impact, maybe even throw them through the air depending on how bad it is
+	- collision sounds for both exterior and interior
+	- a randomn chance for a part to emit sparks after interacting with it on low health, chance increasing with decreasing health
+	- since the exterior entity has no physics sounds, use the physicscollide hook to add tardis-flavored collision sounds with the environment
+ 		-- sound intensity based on collision force/speed
+
+
+add low-power-low-health lighting options for cases where you're at low health and in low power mode (currently just uses full power off lighting)
+
+if possible, for the love of god figure out some of the rendering bugs
+	- exterior blocking all kinds of shit while fading out despite being transparent, basically only props can be seen through it properly
+	- prop lighting override fucking up like, EVERYTHING
+	- projected textures NOT UPDATING outside of a player's fov
+		-- this single handedly kills the kickass awesome flashlight-goes-through-tardis-portal feature sitting in sh_ProjectedFlashlight.lua
+
+
+eventually figure out why render.GetLightColor doesn't return the true accurate lighting conditions for a given spot of the map
+	- this messes up the new door lighting under some conditions
+
+
+when i figure out how, lock the 3rdperson camera to the tardis when mat'ing so that the tardis doesn't change angle from the camera's view
+
+rafactor a bunch of functions to make code better
+
+add the remaining phase sequences for low health
+
+potentially find better sounds for some events (maybe tardis death, demat with handbrake on)
+
+make broken sounds for mathop during low health mode
+
+add back exterior teleport sounds since i totally neglected those after fixing the interior sounds
+
+finish the rest of the vortexes i keep putting off
+also fix the time swap system to accompany them
+also also make compressed versions for all the vortexes for the average user (aka not fanatic like me)
+
+make a new check during the finding-interior-stage when spawning the tardis
+	- check if a map has a skybox, and if yes, check the area of the skybox for a potential place to spawn the interior
+	- benefits: very easy way to find a good spot as most maps have some free space in the skybox
+		-- particularly with jazztronauts in mind, where you're likely to travel on your own and thus only one interior spawns anyway
+	- downsides: probably only fits one interior at a time, and perhaps the interior can be seen in the skybox sometimes
+
+
+important: add support for a bunch of extensions so people can play around with all of this stuff
+
+also make alot more systems customizable instead of hardcoded once i can learn how
+- map selection for map travel
+- interior selection for the tardis key
+
+
+jazztronauts specific:
+add an equipment dispenser carrying all jazztronauts weapons, in case a map strips you of your weapons
+add a health and armor dispenser that can be used every once in a while, to give the tardis a bit of a mobile base/home feel that the player can retreat into during travels
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
