@@ -1,0 +1,17 @@
+"VertexlitGeneric"
+{
+	"$baseTexture" "models/hugoextension/2005/2005front_future"
+	"$surfaceprop" "water"
+	"$selfillum" 1
+        "$selfillummask" "models/hugoextension/2014/whitevortex"
+	"$nodecal" "1"
+		"Proxies"
+		{
+			"AnimatedTexture"
+				{
+					"animatedTextureVar" "$basetexture"
+					"animatedTextureFrameNumVar" "$frame"
+					"animatedTextureFrameRate" "60"
+				}
+		}
+}
