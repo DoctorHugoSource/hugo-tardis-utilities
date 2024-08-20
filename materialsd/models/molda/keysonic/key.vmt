@@ -1,8 +1,0 @@
-"VertexlitGeneric"
-{
-	"$basetexture" "models/molda/keysonic/key"
-	"$envmap" "models/molda/keysonic/environment"
-	"$envmaptint" "[10,10,10]"
-	"$nocull" "1"
-	"$surfaceprop" "Plastic"
-}
