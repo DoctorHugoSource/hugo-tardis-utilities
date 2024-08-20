@@ -1,14 +1,18 @@
 
+
+local realtimer = 0
+local delay = 0
+
 ENT:AddHook("OnHealthChange", "BetterCrashing", function(self, newhealth, oldhealth)
 
-    timer.Simple( 0, function()
+    timer.Simple( 0, function()     -- 1 tick delay to let the tardis process its own state before running any of this
             if self:IsBroken() then
 
                 if self:GetData("teleport", false) then return end -- dont do this stuff while teleporting or starting a teleport
 
                     self:SetFlight(true) -- make the tardis enable flight mode when becoming heavily damaged, because it keeps doing that in the show for some reason and it's a fun gameplay idea
                                          -- also i'm aware this will enable flight mode every time it takes any damage, but ill just keep that in cause it adds chaos and thats fun
-                                         -- the object is basically gonna be managing to reach the handbrake while being thrown around the console room to manage to land
+                                         -- this effectively creates the objective of reaching the handbrake to land the tardis while being thrown around the console room
                         if self:IsBroken() and self:GetFlight() then
 
 
@@ -27,5 +31,26 @@ ENT:AddHook("OnHealthChange", "BetterCrashing", function(self, newhealth, oldhea
 
             end
     end)
+
+
+    if newhealth < oldhealth then  -- if damage
+
+        realtimer = CurTime()
+        if realtimer > delay then  -- limit the amount of interactions per second
+
+            local intensity = math.abs((newhealth - oldhealth) / 4)
+print (intensity)
+            delay = CurTime() + 2  -- try to ensure the timer can run out before the next instance of sparks is applied
+
+            timer.Create("newbreakdowneffects_sparks", 0.1, math.Clamp(intensity, 1, 20), function()
+
+                TARDIS:RandomConsoleSparks(self.interior)
+
+
+            end)
+
+        end
+
+    end
 
 end)
