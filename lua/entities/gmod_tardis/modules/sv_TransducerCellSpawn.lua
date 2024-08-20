@@ -5,7 +5,7 @@ ENT:AddHook("PostInitialize", "addtransducercell", function(self)
 
     if self.metadata.Interior.TransducerCell == nil then return end
 
-        self:Timer("transcell_spawn", 1, function()
+        self:Timer("transcell_spawn", 3, function()  -- why am i using self:timer here i dont even know what it does
 
             self.jazzcell = ents.Create("transducer_cell")
             self.jazzcell:Spawn()
