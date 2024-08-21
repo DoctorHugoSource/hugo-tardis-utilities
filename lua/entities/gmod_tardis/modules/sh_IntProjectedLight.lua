@@ -235,7 +235,7 @@ end
                     timemodifier = math.abs(timemodifier - 1440)
                 end
 
-                intprojcol = intprojcol * (timemodifier / 720)
+                intprojcol = intprojcol * (timemodifier / 1440)
                 end
 
             end
