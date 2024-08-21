@@ -144,7 +144,17 @@ end
 
 function SWEP:SecondaryAttack()
 
-StormFox2.Time.Set(StormFox2.Time.Get() + 360)
+    local ttweathers = {
+        "cloud",
+        "fog",
+        "rain",
+        "clear",
+        -- [4]	=	sandstorm,  -- dont do the unrealistic ones
+        -- [5]	=	radioactive,
+        -- [6]	=	lava,
+        }
+
+    CWI.SetWeather(table.Random(ttweathers))
 
 -- print(StormFox2.Time.Get())
 
