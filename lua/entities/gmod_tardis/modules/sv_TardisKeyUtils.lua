@@ -1,6 +1,6 @@
 
 ENT:AddHook("StopDemat", "HugoTardisKeyUtil", function(self)
-    print (self:GetDematLeave())
+
     timer.Simple( 1, function()
 
         -- remove tardis upon alt fire with tardis keys
