@@ -56,7 +56,7 @@ ENT:AddHook("PlayerEnter", "TardisEnableViewmodelLO", function(self)  -- update 
 
         LocalPlayer():SetTardisData("vmlocol", vmlocol, true)  -- send it to the player
         self.vmlocol = vmlocol  -- send to client but not using tardis data, because that is wiped when you walk out
-print (vmlocol)
+
 end)
 
 
@@ -101,7 +101,7 @@ ENT:AddHook("PowerToggled", "TardisUpdateViewmodelLO", function(self, on)
 
         LocalPlayer():SetTardisData("vmlocol", vmlocol, true)
         self.vmlocol = vmlocol
-print (vmlocol)
+
 end)
 
 
