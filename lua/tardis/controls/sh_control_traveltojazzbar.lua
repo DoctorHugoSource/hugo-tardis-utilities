@@ -2,7 +2,7 @@
 TARDIS:AddControl({
     id = "returntobar",
     ext_func = function(self,ply)
-print (self)
+
         if self.exterior:GetTargetMap() == "jazz_bar" then  -- if the target map is already jazz bar (aka this control has been used previously) reset the target map to none
         self.exterior:SetTargetMap(nil)
         TARDIS:Message(ply, "Target Map set to none")
