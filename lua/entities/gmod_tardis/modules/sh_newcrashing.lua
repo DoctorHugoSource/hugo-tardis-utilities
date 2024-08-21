@@ -39,7 +39,7 @@ ENT:AddHook("OnHealthChange", "BetterCrashing", function(self, newhealth, oldhea
         if realtimer > delay then  -- limit the amount of interactions per second
 
             local intensity = math.abs((newhealth - oldhealth) / 4)
-print (intensity)
+
             delay = CurTime() + 2  -- try to ensure the timer can run out before the next instance of sparks is applied
 
             timer.Create("newbreakdowneffects_sparks", 0.1, math.Clamp(intensity, 1, 20), function()
