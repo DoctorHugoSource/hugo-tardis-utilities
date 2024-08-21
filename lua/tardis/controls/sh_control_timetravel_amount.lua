@@ -35,7 +35,7 @@ TARDIS:AddControl({
             TARDIS:Message(ply, "TARDIS synced to local time")
         end
 
-print (self:GetData("timetravel_amount", 0))
+
 
     end,
     serveronly = true,
