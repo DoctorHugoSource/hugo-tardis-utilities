@@ -8,6 +8,9 @@ TARDIS:AddControl({
             TARDIS:Message(ply, "Warning! Reset Time Space Forward/Back Control first!")
         return end
 
+        if self.vortexindex == nil then
+            self.vortexindex = 0
+         end
 
         self.vortexindex = self.vortexindex + 2
 
