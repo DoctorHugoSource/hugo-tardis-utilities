@@ -9,8 +9,8 @@ TARDIS:AddControl({
         return end
 
         if self.vortexindex == nil then
-            self.vortexindex = 0
-         end
+           self.vortexindex = 0
+        end
 
         self.vortexindex = self.vortexindex + 2
 
