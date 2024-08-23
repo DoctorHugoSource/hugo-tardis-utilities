@@ -220,6 +220,26 @@ end
     local dyncol = self:GetData("dyncol", Vector(0,0,0))
 
 
+    -- todo: add an "is under sky" check to determine if the tardis is inside or outside
+
+    -- if StormFox2 then  -- adjust simulated outside light to the time of day when stormfox2 is installed
+    --     local timemodifier = StormFox2.Time.Get()
+
+    --     if (timemodifier <= 360) or (timemodifier >= 1080) then
+
+    --     if timemodifier >= 1080 then
+    --         timemodifier = math.abs(timemodifier - 1440)
+    --     end
+
+    --     distcol = distcol * (timemodifier / 1440)
+    --     ambcol = ambcol * (timemodifier / 1440)
+    --     end
+
+    -- end
+
+
+
+
         -- calculates combined color from all the above values
         local combcol = ((povcol * 2) * ambcol) + (distcol * 0.5) + (dyncol * 0.5)
 
