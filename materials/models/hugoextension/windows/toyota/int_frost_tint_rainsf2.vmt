@@ -1,7 +1,7 @@
 VertexLitGeneric
 {
-	$basetexture "models/TARDISman/tardisman550/interior_windows_texture"
-	$bumpmap  "models/TARDISman/tardisman550/interior_windows_texture_normal"
+	$basetexture "models/hugoextension/windows/shared/windowdark"
+	$bumpmap  "stormfox2/effects/window/rain_normal"
 	$envmap "models/TARDISman/tardisman550/environment"
 	$envmaptint "[.125 .125 .125]"
 	$diffuseexp 1
@@ -11,9 +11,9 @@ VertexLitGeneric
 	$phongalbedotint 1
 	$phongalbedoboost 255
 	$phongexponenttexture "models/TARDISman/tardisman550/tardis_f_r7"
-	$phongexponent 700
-	$phongboost 6
-	$phongtint 			"[ 1 0.5 0.2 ]"
+	$phongexponent 70
+	$phongboost 2
+	$phongtint 			"[ 1 1 1 ]"
 	$phongfresnelranges "[1 1 1]"
 	$rimlight               1
 	$rimlightexponent       2
@@ -31,5 +31,11 @@ VertexLitGeneric
 	TARDIS_Interior_WindowTint {
 	resultVar    $EmissiveBlendTint
 	}
+            "TextureScroll"
+            {
+                "textureScrollVar" "$basetexturetransform"
+                "textureScrollRate" 2
+                "textureScrollAngle" -90
+            }
 }
 }
