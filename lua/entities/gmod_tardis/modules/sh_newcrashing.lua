@@ -2,6 +2,7 @@
 
 local realtimer = 0
 local delay = 0
+local delay2 = 0
 
 ENT:AddHook("OnHealthChange", "BetterCrashing", function(self, newhealth, oldhealth)
 
@@ -32,25 +33,89 @@ ENT:AddHook("OnHealthChange", "BetterCrashing", function(self, newhealth, oldhea
             end
     end)
 
+end)
 
-    if newhealth < oldhealth then  -- if damage
+
+
+
+
+
+ENT:AddHook("OnTakeDamage", "NewBreakDownEffects", function(self, dmginfo)
+
+    if not IsValid(self.interior) then return end
+
+    if self:GetHealth() == 0 then return end
+
+    if dmginfo:GetDamage() <= 0 then return end  -- if damage
+
+
+    local int = self.metadata.Interior.Sounds.Damage
+
+    if dmginfo:IsDamageType(64) then
 
         realtimer = CurTime()
         if realtimer > delay then  -- limit the amount of interactions per second
 
-            local intensity = math.abs((newhealth - oldhealth) / 4)
+            local intensity = dmginfo:GetDamage()
+
+                timer.Create("newbreakdowneffects_sparks", 0.1, math.Clamp(intensity, 1, 20), function()
+
+                    TARDIS:RandomConsoleSparks(self.interior)
+
+                end)
+
+                self.interior:EmitSound(int.Explosion)
+                util.ScreenShake(self.interior:GetPos(), intensity * 0.5, 2, 2, 2000)
 
             delay = CurTime() + 2  -- try to ensure the timer can run out before the next instance of sparks is applied
 
-            timer.Create("newbreakdowneffects_sparks", 0.1, math.Clamp(intensity, 1, 20), function()
+        end
+
+    else
+
+            local intensity = (dmginfo:GetDamage() / 3)
+
+                timer.Create("newbreakdowneffects_sparks", 0.1, math.Clamp(intensity, 1, 20), function()
+
+                    TARDIS:RandomConsoleSparks(self.interior)
+
+                end)
+
+
+
+                -- if not IsValid(self.interior) then return end                -- much like below this is being replaced with a reworked damage effects function
+        -- local int = self.metadata.Interior.Sounds.Damage
+        -- if dmginfo:IsDamageType(DMG_BLAST) and self:GetHealth() ~= 0 then
+        --     self.interior:EmitSound(int.Explosion)
+        -- end
+    end
+
+end)
+
+
+
+
+
+  -- for physics based collision damage, because OnTakeDamage doesn't detect it
+
+function ENT:NewBreakDownEffects_Sparks(self, dmg)
+
+
+    if dmg <= 0 then return end  -- if damage
+
+        realtimer = CurTime()
+        if realtimer > delay2 then  -- limit the amount of interactions per second
+
+            local intensity = math.abs(dmg / 4)
+
+            delay2 = CurTime() + 2  -- try to ensure the timer can run out before the next instance of sparks is applied
+
+            timer.Create("newbreakdowneffects_sparks_s", 0.1, math.Clamp(intensity, 1, 20), function()
 
                 TARDIS:RandomConsoleSparks(self.interior)
-
 
             end)
 
         end
 
-    end
-
-end)
+end
