@@ -40,11 +40,13 @@ end)
 
 
 
-ENT:AddHook("OnTakeDamage", "NewBreakDownEffects", function(self, dmginfo)
+ENT:AddHook("OnTakeDamage", "NewBreakdownEffects", function(self, dmginfo)
 
     if not IsValid(self.interior) then return end
 
-    if self:GetHealth() == 0 then return end
+    if self:GetHealth() == 0 then return end  -- when not dead
+
+    if self:GetPower() == false and (not self:GetData("lowpowermode", false)) then return end  -- when power is on in any capacity
 
     if dmginfo:GetDamage() <= 0 then return end  -- if damage
 
@@ -58,7 +60,7 @@ ENT:AddHook("OnTakeDamage", "NewBreakDownEffects", function(self, dmginfo)
 
             local intensity = dmginfo:GetDamage()
 
-                timer.Create("newbreakdowneffects_sparks", 0.1, math.Clamp(intensity, 1, 20), function()
+                timer.Create("newbreakdowneffects_sparks_d", 0.1, math.Clamp(intensity, 1, 20), function()
 
                     TARDIS:RandomConsoleSparks(self.interior)
 
@@ -100,6 +102,12 @@ end)
 
 function ENT:NewBreakDownEffects_Sparks(self, dmg)
 
+    if not IsValid(self.interior) then return end
+
+    if self:GetHealth() == 0 then return end  -- when not dead
+
+    if self:GetPower() == false and (not self:GetData("lowpowermode", false)) then return end  -- when power is on in any capacity
+
 
     if dmg <= 0 then return end  -- if damage
 
@@ -110,12 +118,27 @@ function ENT:NewBreakDownEffects_Sparks(self, dmg)
 
             delay2 = CurTime() + 2  -- try to ensure the timer can run out before the next instance of sparks is applied
 
-            timer.Create("newbreakdowneffects_sparks_s", 0.1, math.Clamp(intensity, 1, 20), function()
+            timer.Create("newbreakdowneffects_sparks_c", 0.1, math.Clamp(intensity, 1, 20), function()
 
                 TARDIS:RandomConsoleSparks(self.interior)
 
             end)
 
         end
+
+end
+
+
+if SERVER then
+
+ENT:AddHook("DematFailed", "BreakdownEffects", function(self)
+
+    timer.Create("newbreakdowneffects_sparks_f", 0.1, math.Clamp(7, 1, 20), function()
+
+        TARDIS:RandomConsoleSparks(self.interior)
+
+    end)
+
+end)
 
 end
