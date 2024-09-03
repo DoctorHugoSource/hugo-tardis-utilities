@@ -46,14 +46,22 @@ SWEP.DrawCrosshair = true
 ----------------------------------------------------------------------------------------------------------------------------------------------
 
 -- abandon all hope ye who enter here
--- below is like a thousand lines of throaway code used for debugging and i kept all of it
+-- below is like a thousand lines of throaway code used for debugging
 
 ----------------------------------------------------------------------------------------------------------------------------------------------
 
 function SWEP:PrimaryAttack()
 
+    print (CWI.GetWeather())
 
-    print (util.QuickTrace(Entity(1):GetPos(), Vector(0,0,-100) ).Hit)
+    -- for k, v in ipairs(ents.FindByClass("npc_combine_s")) do
+
+    --     v:SetTarget( jazztardis )
+
+    -- end
+
+
+    -- print (util.QuickTrace(Entity(1):GetPos(), Vector(0,0,-100) ).Hit)
 
 
 
@@ -144,17 +152,92 @@ end
 
 function SWEP:SecondaryAttack()
 
-    local ttweathers = {
-        "cloud",
-        "fog",
-        "rain",
-        "clear",
-        -- [4]	=	sandstorm,  -- dont do the unrealistic ones
-        -- [5]	=	radioactive,
-        -- [6]	=	lava,
-        }
+    -- local ttweathers = {
+    --     "cloud",
+    --     "fog",
+    --     "rain",
+    --     "clear",
+    --     -- [4]	=	sandstorm,  -- dont do the unrealistic ones
+    --     -- [5]	=	radioactive,
+    --     -- [6]	=	lava,
+    --     }
 
-    CWI.SetWeather(table.Random(ttweathers))
+    -- CWI.SetWeather(table.Random(ttweathers))
+
+    -- print (StormFox2.Temperature.Get())
+
+    -- local realtemp = TARDIS:Get_TT_Temp()
+
+    -- StormFox2.Temperature.Set(realtemp + 0.1, 2) -- I DONT KNOW WHY THE FUCK I HAVE TO DO ADD SOMETHING TO THIS NUMBER FOR IT TO WORK BUT OTHERWISE IT DOESNT
+
+
+
+    local targettimes = {  -- daily weather is split into increments
+    480,
+    960,
+    1440,
+}
+
+
+local function nextday(targettimes, midtime)  -- i think this is necessary to retreive the time of the end of the next day, to calculate the incoming temperature
+    local closest = nil
+    local smallest_diff = 9999
+
+    for _, num in ipairs(targettimes) do
+        local diff = math.abs(num - midtime)
+        if diff < smallest_diff then
+            smallest_diff = diff
+            closest = num
+        end
+    end
+
+    return closest
+end
+
+
+    local function TTupdatetemperature()
+
+        local oldtemp = TARDIS:Get_TT_TempOld() - 0.1  -- get temperature of the previous increment, for lerp calculation
+        local oldtime = StormFox2.Time.Get()  -- time before timetravel
+
+        if StormFox2.Time.Get() + 120 >= 1440 then
+            SF2ForceNextDay()
+        end
+
+
+            StormFox2.Time.Set(StormFox2.Time.Get() + 120)  -- travel the set amount of time
+
+
+
+            timer.Simple(0.3, function()  -- give weather time to update
+
+                local newtime = StormFox2.Time.Get()  -- time after timetravel
+
+                local targettime = nextday(targettimes, newtime + 480)  -- time of the next upcoming increment, for temperature lerp
+
+                local midtime = math.abs(targettime - oldtime)  -- calculate difference...
+
+                local lerpedtime = (newtime - oldtime) / (targettime - oldtime)  -- determine the amount of progress from previous time, to next weather increment
+
+
+                    local realtemp = (TARDIS:Get_TT_Temp() + 0.1)  -- get the temperature of the next increment
+
+                    local lerptemp = ((((oldtemp - realtemp) * lerpedtime) - oldtemp) * -1)  -- finally calculate the true temperature for the current time
+
+
+                        StormFox2.Temperature.Set(lerptemp, 2)  -- apply temperature
+
+                print (CWI.GetWeather())  -- print the new weather for debugging
+
+            end)
+
+    end
+
+    TTupdatetemperature()  -- run function
+
+
+
+
 
 -- print(StormFox2.Time.Get())
 
@@ -278,7 +361,8 @@ end
 
 function SWEP:Reload()    -- call tardis to your location, like the sonic can - but shortcut
 
-
+    print (StormFox2.Temperature.Get())
+    print (StormFox2.Time.Get())
 self:GetOwner():DropToFloor()
 
 -- local ply = self:GetOwner()
