@@ -68,6 +68,36 @@ end)
 
 hook.Add("PlayerSpawn", "tardisspawning", function (ply)
 
+    local missing = nil
+    local requiredaddons = {
+
+        "addons/hugo-tardis-utilities-main",
+        "addons/tardis_main_hugoextension_-main",
+        "addons/doors-hugoextension-main",
+
+    }
+
+    for k, v in pairs(requiredaddons) do
+
+        local missingf
+
+        missingf = file.Exists(v, "GAME")
+
+        if missingf == false then
+            missing = true
+        end
+
+    end
+
+
+    if missing == true then
+        PrintMessage(3, "[TARDIS diagnosis] A vital part of hugo tardis utilities is missing; if the addon isn't working, make sure you have all the files")
+    end
+
+
+
+
+
     if IsValid(jazztardis) then return end -- dont run script if the tardis already exists for some reason
 
 
