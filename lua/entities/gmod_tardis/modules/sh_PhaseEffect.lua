@@ -94,9 +94,24 @@ bind = function( self, mat, ent )
             GlossinessIntensity = Vector(defaultboost,defaultboost,defaultboost)        -- could have defined as a vector in metadata directly but
             end                                                                         -- defining a simple number is more intuitive for extension devs
 
-        local ambientbrightness = ent:GetData("ambcol", Vector(0,0,0))
+        local ambientbrightness = (ent:GetData("ambcol", Vector(0,0,0)) * 1)
 
-        AppliedGhostIntensity = AppliedGhostIntensity * math.Clamp ((ambientbrightness.y + ambientbrightness.x + ambientbrightness.z), 0.1, 0.7)  -- account for ambient light level
+
+        if StormFox2 then  -- update: adjust ambient light to time of day for time travel support
+            local timemodifier = StormFox2.Time.Get()
+
+            if (timemodifier <= 360) or (timemodifier >= 1080) then
+
+            if timemodifier >= 1080 then
+                timemodifier = math.abs(timemodifier - 1440)
+            end
+
+            ambientbrightness = ambientbrightness * ((timemodifier / 1440) * 0.1)
+            end
+
+        end
+
+        AppliedGhostIntensity = AppliedGhostIntensity * math.Clamp ((ambientbrightness.y + ambientbrightness.x + ambientbrightness.z), 0, 0.7)  -- account for ambient light level
                                                                                                                                                   -- but dont go too bright or too dark
 
             if GetConVar("hugoextension_tardis2_PhaseEffect"):GetBool() == false then  -- disable the effect when user chooses to, but make sure the values are reset to baseline
