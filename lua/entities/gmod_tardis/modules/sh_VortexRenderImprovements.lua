@@ -129,16 +129,21 @@ end)
         if (TARDIS:GetExteriorEnt()==self or self:GetData("VortexEVA",false)) and enabled then
             if self:GetHandbrake() then
             self:SetData("alpha",255,true)
+            -- part:SetModelScale(0,0)
             end
             if not (self:GetData("teleport") or self:GetData("vortex")) then
             self:SetData("alpha",255,true)
+            -- part:SetModelScale(0,0)
             end
             render.SetBlend(vortexalpha * vortexalpha)
+            -- part:SetModelScale(5,0)
             if vortexalpha>0 and self:CallHook("ShouldVortexIgnoreZ") then
                 cam.IgnoreZ(true)
+                part:SetModelScale(5,0)
             end
         else
             render.SetBlend(0)
+            part:SetModelScale(0,0) -- experimental; for some reason disabling the vortex's shadow rendering doesnt work under some conditions, but making the model tiny does
         end
     end)
 
